@@ -13,6 +13,10 @@ struct PasswordPolicy {
     max: i32,
 }
 
+/// Parses the line BufReader, returning a vector of `Record` structure.
+///
+/// It is not the most performant to parse the entire file into a structure, but we are not
+/// too concerned with performance at this point.
 fn parse_lines(lines: std::io::Lines<std::io::BufReader<std::fs::File>>) -> Vec<Record> {
     let mut record_vector = Vec::<Record>::new();
     for line in lines {
