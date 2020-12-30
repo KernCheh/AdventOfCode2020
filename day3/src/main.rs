@@ -1,4 +1,4 @@
-mod read_input;
+use read_input;
 
 #[derive(Debug)]
 struct BiomeRow {

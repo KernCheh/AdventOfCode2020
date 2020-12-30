@@ -1,4 +1,4 @@
-mod read_input;
+use read_input;
 
 #[derive(Debug)]
 struct Record {
@@ -39,10 +39,10 @@ fn parse_lines(lines: std::io::Lines<std::io::BufReader<std::fs::File>>) -> Vec<
     return record_vector;
 }
 
-fn satisfy_policy(password: Vec<char>, character: char, min: i32, max: i32) -> bool {
+fn satisfy_policy(password: &Vec<char>, character: char, min: i32, max: i32) -> bool {
     let mut occurences = 0;
     for pwd_char in password {
-        if pwd_char == character {
+        if *pwd_char == character {
             occurences += 1;
         }
     }
@@ -54,7 +54,7 @@ fn satisfy_policy(password: Vec<char>, character: char, min: i32, max: i32) -> b
 }
 
 fn satisfy_revised_policy(
-    password: Vec<char>,
+    password: &Vec<char>,
     character: char,
     lindex: usize,
     rindex: usize,
@@ -82,7 +82,7 @@ fn main() {
     let mut valid = 0;
     for record in &records {
         if satisfy_policy(
-            record.password.chars().collect::<Vec<char>>(),
+            &record.password.chars().collect::<Vec<char>>(),
             record.password_policy.character,
             record.password_policy.min,
             record.password_policy.max,
@@ -95,7 +95,7 @@ fn main() {
     valid = 0;
     for record in &records {
         if satisfy_revised_policy(
-            record.password.chars().collect::<Vec<char>>(),
+            &record.password.chars().collect::<Vec<char>>(),
             record.password_policy.character,
             record.password_policy.min as usize,
             record.password_policy.max as usize,
