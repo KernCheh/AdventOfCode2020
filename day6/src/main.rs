@@ -14,7 +14,7 @@ fn main() {
         if lstr != "" {
             group_size += 1;
             for character in lstr.chars() {
-                *group_answers.entry(character).or_insert(1) += 1;
+                *group_answers.entry(character).or_insert(0) += 1;
             }
         } else {
             ans_count += group_answers.len();
@@ -31,11 +31,15 @@ fn main() {
     // println!("{:?}", groups);
     println!("Answer count {}", ans_count);
 
-    println!("{:?}", group_sizes);
+    // println!("{:?}", group_sizes);
 
     ans_count = 0;
     for x in 0..groups.len() {
         for item in &groups[x] {
+            // println!("{:?}", item);
+
+            // If everyone in the group answered yes to this question,
+            // in other words, if number of "yes" for this question matches the size of the group
             if *item.1 == group_sizes[x] {
                 ans_count += 1;
             }
